@@ -1,976 +1,228 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arunabh Choudhury — Computational Biology</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --serif: 'DM Serif Display', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
-      --teal-900: #04342C;
-      --teal-800: #085041;
-      --teal-700: #0F6E56;
-      --teal-600: #1D9E75;
-      --teal-200: #9FE1CB;
-      --teal-100: #E1F5EE;
-      --coral: #D85A30;
-      --coral-light: #FAECE7;
-      --text: #1a1a18;
-      --text-muted: #6b6b65;
-      --border: rgba(0,0,0,0.1);
-      --bg: #ffffff;
-      --bg2: #f7f6f2;
-      --bg3: #f1f0ea;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --text: #e8e6de;
-        --text-muted: #9a9890;
-        --border: rgba(255,255,255,0.1);
-        --bg: #1a1a18;
-        --bg2: #222220;
-        --bg3: #2a2a28;
-        --teal-100: #04342C;
-        --teal-200: #085041;
-        --teal-600: #5DCAA5;
-        --teal-700: #1D9E75;
-        --coral-light: #4A1B0C;
-      }
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--sans);
-      color: var(--text);
-      background: var(--bg3);
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    /* ── LAYOUT ── */
-    .site {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2rem 5rem;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--bg3);
-      border-bottom: 0.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-      margin-bottom: 3.5rem;
-    }
-
-    .nav-logo {
-      font-family: var(--serif);
-      font-size: 17px;
-      letter-spacing: -0.3px;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.75rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-decoration: none;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--teal-700); }
-
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 22px;
-      height: 1.5px;
-      background: var(--text);
-      margin: 5px 0;
-      transition: 0.3s;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 140px;
-      gap: 2rem;
-      align-items: start;
-      margin-bottom: 3.5rem;
-    }
-
-    .hero-tag {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--teal-600);
-      font-weight: 500;
-      margin-bottom: 0.75rem;
-    }
-
-    .hero h1 {
-      font-family: var(--serif);
-      font-size: 52px;
-      line-height: 1.05;
-      letter-spacing: -1.5px;
-      margin-bottom: 1.25rem;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--teal-700);
-    }
-
-    .hero-bio {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--text-muted);
-      max-width: 540px;
-      margin-bottom: 1.75rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--teal-700);
-      color: #fff;
-      border: none;
-      padding: 10px 22px;
-      border-radius: 6px;
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s;
-    }
-
-    .btn-primary:hover { background: var(--teal-800); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--teal-700);
-      border: 1px solid var(--teal-600);
-      padding: 10px 22px;
-      border-radius: 6px;
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.2s;
-    }
-
-    .btn-outline:hover { background: var(--teal-100); }
-
-    .avatar-box {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      background: var(--teal-100);
-      border: 2px solid var(--teal-200);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .avatar-initials {
-      font-family: var(--serif);
-      font-size: 40px;
-      color: var(--teal-700);
-    }
-
-    /* ── STATS ── */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 0.5px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 4rem;
-    }
-
-    .stat {
-      background: var(--bg);
-      padding: 1.5rem 1rem;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-family: var(--serif);
-      font-size: 34px;
-      color: var(--teal-700);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 6px;
-      letter-spacing: 0.04em;
-    }
-
-    /* ── SECTIONS ── */
-    .section { margin-bottom: 4rem; }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 2rem;
-    }
-
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal-600);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-
-    .section-line {
-      flex: 1;
-      height: 0.5px;
-      background: var(--border);
-    }
-
-    /* ── RESEARCH ── */
-    .research-focus {
-      background: var(--teal-100);
-      border-left: 3px solid var(--teal-600);
-      padding: 1.25rem 1.5rem;
-      border-radius: 0 10px 10px 0;
-      margin-bottom: 1.75rem;
-    }
-
-    .research-focus p {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--teal-800);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .research-focus p { color: var(--teal-200); }
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 12px;
-    }
-
-    .skill-card {
-      background: var(--bg);
-      border: 0.5px solid var(--border);
-      border-radius: 12px;
-      padding: 1.1rem 1.25rem;
-    }
-
-    .skill-card h4 {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; }
-
-    .tag {
-      font-size: 12px;
-      background: var(--bg2);
-      border: 0.5px solid var(--border);
-      border-radius: 4px;
-      padding: 4px 9px;
-      color: var(--text-muted);
-    }
-
-    /* ── PUBLICATIONS ── */
-    .pub-list {
-      border: 0.5px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .pub-item {
-      background: var(--bg);
-      padding: 1.1rem 1.5rem;
-      border-bottom: 0.5px solid var(--border);
-      transition: background 0.15s;
-    }
-
-    .pub-item:last-child { border-bottom: none; }
-    .pub-item:hover { background: var(--bg2); }
-
-    .pub-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 5px;
-    }
-
-    .pub-year {
-      font-size: 11px;
-      color: var(--teal-600);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-    }
-
-    .pub-journal-badge {
-      font-size: 11px;
-      background: var(--teal-100);
-      color: var(--teal-800);
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .pub-journal-badge { color: var(--teal-200); }
-    }
-
-    .pub-title {
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.55;
-      margin-bottom: 5px;
-      color: var(--text);
-    }
-
-    .pub-authors {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .pub-authors a {
-      color: var(--teal-700);
-      text-decoration: none;
-    }
-
-    .pub-authors a:hover { text-decoration: underline; }
-
-    .more-pubs { display: none; }
-    .more-pubs.visible { display: block; }
-
-    .toggle-btn {
-      width: 100%;
-      background: var(--bg2);
-      border: none;
-      border-top: 0.5px solid var(--border);
-      padding: 1rem;
-      font-family: var(--sans);
-      font-size: 13px;
-      color: var(--teal-700);
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .toggle-btn:hover { background: var(--teal-100); }
-
-    /* ── TIMELINE ── */
-    .timeline {
-      position: relative;
-      padding-left: 1.75rem;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 7px;
-      top: 10px;
-      bottom: 10px;
-      width: 1px;
-      background: var(--border);
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 2rem;
-    }
-
-    .timeline-item:last-child { margin-bottom: 0; }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -1.75rem;
-      top: 7px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--teal-600);
-      border: 2.5px solid var(--bg3);
-    }
-
-    .timeline-period {
-      font-size: 11px;
-      color: var(--teal-600);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      margin-bottom: 3px;
-    }
-
-    .timeline-title {
-      font-size: 15px;
-      font-weight: 500;
-      margin-bottom: 2px;
-      color: var(--text);
-    }
-
-    .timeline-sub {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 7px;
-    }
-
-    .timeline-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    .timeline-desc li {
-      margin-left: 1.1rem;
-      margin-bottom: 4px;
-    }
-
-    /* ── CONFERENCES ── */
-    .conf-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .conf-item {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      background: var(--bg);
-      border: 0.5px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-    }
-
-    .conf-badge {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 4px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .badge-poster {
-      background: var(--coral-light);
-      color: var(--coral);
-    }
-
-    .badge-talk {
-      background: var(--teal-100);
-      color: var(--teal-800);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .badge-talk { color: var(--teal-200); }
-    }
-
-    .conf-text {
-      font-size: 14px;
-      line-height: 1.65;
-      color: var(--text-muted);
-    }
-
-    .conf-text strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    /* ── CONTACT ── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 12px;
-    }
-
-    .contact-card {
-      background: var(--bg);
-      border: 0.5px solid var(--border);
-      border-radius: 12px;
-      padding: 1.1rem 1.25rem;
-    }
-
-    .contact-card .clabel {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-    }
-
-    .contact-card .cvalue {
-      font-size: 13px;
-      color: var(--teal-700);
-      word-break: break-all;
-    }
-
-    .contact-card a {
-      color: var(--teal-700);
-      text-decoration: none;
-    }
-
-    .contact-card a:hover { text-decoration: underline; }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 0.5px solid var(--border);
-      padding-top: 1.75rem;
-      margin-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    footer p {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
-      .hero { grid-template-columns: 1fr; }
-      .avatar-box { display: none; }
-      .hero h1 { font-size: 36px; letter-spacing: -0.8px; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .nav-links { display: none; flex-direction: column; gap: 1rem; position: absolute; top: 56px; left: 0; right: 0; background: var(--bg3); border-bottom: 0.5px solid var(--border); padding: 1.25rem 2rem; }
-      .nav-links.open { display: flex; }
-      .nav-toggle { display: block; }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arunabh Choudhury — Computational Biology</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --serif: 'DM Serif Display', Georgia, serif;
+            --sans: 'DM Sans', system-ui, sans-serif;
+            --teal-900: #04342C;
+            --teal-800: #085041;
+            --teal-700: #0F6E56;
+            --teal-600: #1D9E75;
+            --teal-200: #9FE1CB;
+            --teal-100: #E1F5EE;
+            --text: #1a1a18;
+            --text-muted: #6b6b65;
+            --border: rgba(0,0,0,0.1);
+            --bg: #ffffff;
+            --bg2: #f7f6f2;
+            --bg3: #f1f0ea;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text: #e8e6de;
+                --text-muted: #9a9890;
+                --border: rgba(255,255,255,0.1);
+                --bg: #1a1a18;
+                --bg2: #222220;
+                --bg3: #2a2a28;
+                --teal-100: #04342C;
+                --teal-600: #5DCAA5;
+                --teal-700: #1D9E75;
+            }
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--sans); color: var(--text); background: var(--bg3); line-height: 1.6; font-size: 16px; }
+
+        .site { max-width: 900px; margin: 0 auto; padding: 0 2rem 5rem; }
+
+        nav {
+            position: sticky; top: 0; z-index: 100; background: var(--bg3);
+            border-bottom: 0.5px solid var(--border); display: flex;
+            justify-content: space-between; align-items: center; padding: 1rem 0; margin-bottom: 3.5rem;
+        }
+
+        .nav-logo { font-family: var(--serif); font-size: 17px; color: var(--text); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+        .nav-links a { font-size: 12px; color: var(--text-muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.07em; transition: 0.2s; }
+        .nav-links a:hover { color: var(--teal-700); }
+
+        .hero { display: grid; grid-template-columns: 1fr 140px; gap: 2rem; align-items: start; margin-bottom: 3.5rem; }
+        .hero h1 { font-family: var(--serif); font-size: 52px; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 1.25rem; }
+        .hero h1 em { font-style: italic; color: var(--teal-700); }
+        .hero-bio { font-size: 15px; line-height: 1.8; color: var(--text-muted); max-width: 540px; margin-bottom: 1.75rem; }
+        
+        .btn-primary { background: var(--teal-700); color: #fff; padding: 10px 22px; border-radius: 6px; font-size: 13px; font-weight: 500; text-decoration: none; display: inline-block; transition: 0.2s; }
+        .btn-primary:hover { background: var(--teal-800); }
+
+        .avatar-box { width: 130px; height: 130px; border-radius: 50%; background: var(--teal-100); border: 2px solid var(--teal-200); display: flex; align-items: center; justify-content: center; }
+        .avatar-initials { font-family: var(--serif); font-size: 40px; color: var(--teal-700); }
+
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 4rem; }
+        .stat { background: var(--bg); padding: 1.5rem 1rem; text-align: center; }
+        .stat-num { font-family: var(--serif); font-size: 34px; color: var(--teal-700); line-height: 1; }
+        .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+        .section { margin-bottom: 4rem; }
+        .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 2rem; }
+        .section-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-600); font-weight: 500; }
+        .section-line { flex: 1; height: 0.5px; background: var(--border); }
+
+        .pub-list { border: 0.5px solid var(--border); border-radius: 14px; overflow: hidden; }
+        .pub-item { background: var(--bg); padding: 1.1rem 1.5rem; border-bottom: 0.5px solid var(--border); transition: 0.15s; }
+        .pub-item:hover { background: var(--bg2); }
+        .pub-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 11px; font-weight: 500; color: var(--teal-600); }
+        .pub-title { font-size: 14px; font-weight: 500; margin-bottom: 5px; color: var(--text); }
+        .pub-authors { font-size: 12px; color: var(--text-muted); }
+        .pub-authors a { color: var(--teal-700); text-decoration: none; }
+
+        .more-pubs { display: none; }
+        .more-pubs.visible { display: block; }
+        .toggle-btn { width: 100%; background: var(--bg2); border: none; padding: 1rem; font-family: var(--sans); font-size: 13px; color: var(--teal-700); cursor: pointer; }
+
+        .timeline { position: relative; padding-left: 1.75rem; border-left: 1px solid var(--border); }
+        .timeline-item { margin-bottom: 2rem; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: calc(-1.75rem - 6.5px); top: 7px; width: 12px; height: 12px; border-radius: 50%; background: var(--teal-600); border: 2.5px solid var(--bg3); }
+
+        footer { border-top: 0.5px solid var(--border); padding-top: 1.75rem; margin-top: 2rem; display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+
+        @media (max-width: 640px) {
+            .hero { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="site">
+    <nav>
+        <a href="#" class="nav-logo">Arunabh Choudhury</a>
+        <ul class="nav-links">
+            <li><a href="#research">Research</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-  <!-- NAV -->
-  <nav>
-    <a href="#" class="nav-logo">Arunabh Choudhury</a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#conferences">Conferences</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <div class="hero-tag">Ph.D. Candidate · Computational Biology · New Delhi</div>
-      <p class="hero-bio">
-        Ph.D. researcher at the Centre for Interdisciplinary Research in Basic Sciences, Jamia Millia Islamia,
-        specializing in computer-aided drug design and computational discovery of novel therapeutics for
-        neuroinflammatory diseases — with a primary focus on tau-protein kinase inhibition in Alzheimer's disease.
-      </p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="https://scholar.google.com/citations?user=m7P7WS0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
-        <a class="btn-outline" href="#contact">Get in touch</a>
-      </div>
-    </div>
-    <div class="avatar-box">
-      <span class="avatar-initials">AC</span>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <div class="stats-row">
-    <div class="stat">
-      <div class="stat-num">11</div>
-      <div class="stat-label">Publications</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">4</div>
-      <div class="stat-label">Conferences</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">3+</div>
-      <div class="stat-label">Years Research</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">2025</div>
-      <div class="stat-label">Thesis submitted</div>
-    </div>
-  </div>
-
-  <!-- RESEARCH -->
-  <section class="section" id="research">
-    <div class="section-header">
-      <span class="section-label">Research focus</span>
-      <div class="section-line"></div>
-    </div>
-    <div class="research-focus">
-      <p>
-        Focused on structure-based drug design, computational chemistry, and biomolecular simulations
-        targeting neuroinflammatory diseases — particularly tau hyperphosphorylation-driven pathways
-        in Alzheimer's disease and related tauopathies. Research integrates transcriptomics,
-        machine learning-based structure-activity relationships, and microsecond molecular dynamics
-        simulations to identify and validate small-molecule therapeutic candidates.
-      </p>
-    </div>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h4>Bioinformatics</h4>
-        <div class="tag-list">
-          <span class="tag">Molecular dynamics</span>
-          <span class="tag">GROMACS</span>
-          <span class="tag">Virtual screening</span>
-          <span class="tag">MMPBSA / MMGBSA</span>
-          <span class="tag">Transcriptomics</span>
-          <span class="tag">RNA-Seq</span>
-          <span class="tag">Microarray</span>
-          <span class="tag">DESeq2</span>
-          <span class="tag">Differential gene expression</span>
+    <section class="hero">
+        <div>
+            <div style="font-size: 12px; color: var(--teal-600); font-weight: 600; margin-bottom: 10px; letter-spacing: 2px;">PH.D. CANDIDATE · COMPUTATIONAL BIOLOGY</div>
+            <h1>Computational <em>Biology</em></h1>
+            <p class="hero-bio">
+                Researcher at CIRBSc, Jamia Millia Islamia, New Delhi. 
+                Specializing in structure-based drug design and microsecond MD simulations to discover 
+                novel therapeutics for neuroinflammatory diseases.
+            </p>
+            <div style="display:flex; gap:10px;">
+                <a class="btn-primary" href="https://scholar.google.com/citations?user=m7P7WS0AAAAJ" target="_blank">Google Scholar ↗</a>
+                <a class="btn-primary" style="background:transparent; border:1px solid var(--teal-600); color:var(--teal-700);" href="mailto:arunabhch98@gmail.com">Contact Me</a>
+            </div>
         </div>
-      </div>
-      <div class="skill-card">
-        <h4>Drug design & computation</h4>
-        <div class="tag-list">
-          <span class="tag">Structure-based drug design</span>
-          <span class="tag">CADD</span>
-          <span class="tag">Machine learning</span>
-          <span class="tag">SAR analysis</span>
-          <span class="tag">Hit-to-lead optimization</span>
-          <span class="tag">Comparative genomics</span>
-          <span class="tag">Mutation analysis</span>
-          <span class="tag">Protein stability prediction</span>
-        </div>
-      </div>
-      <div class="skill-card">
-        <h4>Programming</h4>
-        <div class="tag-list">
-          <span class="tag">Python</span>
-          <span class="tag">Biopython</span>
-          <span class="tag">Scikit-learn</span>
-          <span class="tag">R</span>
-          <span class="tag">NOISeq</span>
-          <span class="tag">Bash scripting</span>
-          <span class="tag">Bioinformatics pipelines</span>
-        </div>
-      </div>
-    </div>
-  </section>
+        <div class="avatar-box"><span class="avatar-initials">AC</span></div>
+    </section>
 
-  <!-- PUBLICATIONS -->
-  <section class="section" id="publications">
-    <div class="section-header">
-      <span class="section-label">Publications</span>
-      <div class="section-line"></div>
+    <div class="stats-row">
+        <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Publications</div></div>
+        <div class="stat"><div class="stat-num">2026</div><div class="stat-label">Thesis Submitted</div></div>
+        <div class="stat"><div class="stat-num">9.15</div><div class="stat-label">M.Sc. CGPA</div></div>
+        <div class="stat"><div class="stat-num">4</div><div class="stat-label">Conferences</div></div>
     </div>
 
-    <div class="pub-list">
-
-      <div class="pub-item">
-        <div class="pub-meta">
-          <span class="pub-year">2025</span>
-          <span class="pub-journal-badge">Biochem. Biophys. Res. Commun.</span>
+    <section class="section" id="research">
+        <div class="section-header"><span class="section-label">Research Focus</span><div class="section-line"></div></div>
+        <div style="background: var(--teal-100); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--teal-600);">
+            <p style="font-size: 15px; color: var(--teal-800);">
+                My research integrates <strong>transcriptomics, microsecond MM/PBSA analyses, and machine learning</strong> 
+                to prioritize therapeutic targets for Alzheimer’s disease and related tauopathies.
+            </p>
         </div>
-        <div class="pub-title">Structure-guided discovery of tau-phosphorylating kinase DYRK1A inhibitors for therapeutic targeting of neuroinflammatory diseases: Insights from microsecond MD simulation and MMPBSA analyses</div>
-        <div class="pub-authors">Choudhury A., Khan S., Saeed M.U., Mohammad T., Hussain A., AlAjmi M.F., Fatima U., Islam A., Hassan M.I. &nbsp;·&nbsp; <a href="https://doi.org/10.1016/j.bbrc.2025.152166" target="_blank" rel="noopener">DOI ↗</a></div>
-      </div>
+    </section>
 
-      <div class="pub-item">
-        <div class="pub-meta">
-          <span class="pub-year">2025</span>
-          <span class="pub-journal-badge">Int. J. Biol. Macromolecules</span>
+    <section class="section" id="publications">
+        <div class="section-header"><span class="section-label">Selected Publications</span><div class="section-line"></div></div>
+        <div class="pub-list">
+            <div class="pub-item">
+                <div class="pub-meta">2025 · BIOTECHNOLOGY ADVANCES</div>
+                <div class="pub-title">Current advancement in AI-integrated drug discovery: Methods and applications</div>
+                <div class="pub-authors">Mathur Y., <strong>Choudhury A.</strong>, et al. · <a href="https://doi.org/10.1016/j.biotechadv.2025.108642" target="_blank">DOI ↗</a></div>
+            </div>
+            <div class="pub-item">
+                <div class="pub-meta">2025 · BBRC</div>
+                <div class="pub-title">Structure-guided discovery of tau-phosphorylating kinase DYRK1A inhibitors</div>
+                <div class="pub-authors"><strong>Choudhury A.</strong>, Khan S., et al. · <a href="https://doi.org/10.1016/j.bbrc.2025.152166" target="_blank">DOI ↗</a></div>
+            </div>
+            <div class="pub-item">
+                <div class="pub-meta">2025 · INT. J. BIOL. MACROMOL.</div>
+                <div class="pub-title">Targeting tau hyperphosphorylation-mediated neuroinflammation... via ABL1 kinase inhibition</div>
+                <div class="pub-authors"><strong>Choudhury A.</strong>, Prabha S., et al. · <a href="https://doi.org/10.1016/j.ijbiomac.2025.145785" target="_blank">DOI ↗</a></div>
+            </div>
+
+            <div class="more-pubs" id="more-pubs">
+                <div class="pub-item">
+                    <div class="pub-meta">2025 · SCIENTIFIC REPORTS</div>
+                    <div class="pub-title">Repurposing resveratrol for redox-mediated inhibition of MTH1 in breast cancer</div>
+                    <div class="pub-authors">Taiyab A., <strong>Choudhury A.</strong>, et al.</div>
+                </div>
+                <div class="pub-item">
+                    <div class="pub-meta">2024 · BIOMEDICINE & PHARMACOTHERAPY</div>
+                    <div class="pub-title">Exploring MTH1 inhibitory potential of Thymoquinone and Baicalin</div>
+                    <div class="pub-authors">Taiyab A., <strong>Choudhury A.</strong>, et al.</div>
+                </div>
+                <div class="pub-item">
+                    <div class="pub-meta">2022 · PLOS ONE</div>
+                    <div class="pub-title">Comparative analysis of web-based programs for single amino acid substitutions</div>
+                    <div class="pub-authors"><strong>Choudhury A.</strong>, Mohammad T., et al.</div>
+                </div>
+            </div>
+            <button class="toggle-btn" id="toggle-btn" onclick="togglePubs()">Show all 30+ publications ↓</button>
         </div>
-        <div class="pub-title">Targeting tau hyperphosphorylation-mediated neuroinflammation in Alzheimer's disease via ABL1 kinase inhibition: Insights from microsecond MD simulation and MM/PBSA analyses</div>
-        <div class="pub-authors">Choudhury A., Prabha S., Saeed M.U., Mohammad T., Hussain A., AlAjmi M.F., Khan F.I., Islam A., Hassan M.I. &nbsp;·&nbsp; <a href="https://doi.org/10.1016/j.ijbiomac.2025.145785" target="_blank" rel="noopener">DOI ↗</a></div>
-      </div>
+    </section>
 
-      <div class="pub-item">
-        <div class="pub-meta">
-          <span class="pub-year">2025</span>
-          <span class="pub-journal-badge">Biotechnology Advances</span>
+    <section class="section" id="education">
+        <div class="section-header"><span class="section-label">Education & Experience</span><div class="section-line"></div></div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div style="font-size:11px; font-weight:600; color:var(--teal-600);">2022 – PRESENT</div>
+                <div style="font-weight:500;">Ph.D. Biological Sciences (Thesis Submitted)</div>
+                <div style="font-size:13px; color:var(--text-muted);">Centre for Interdisciplinary Research in Basic Sciences, JMI, New Delhi</div>
+            </div>
+            <div class="timeline-item">
+                <div style="font-size:11px; font-weight:600; color:var(--teal-600);">2020 – 2022</div>
+                <div style="font-weight:500;">Project Assistant</div>
+                <div style="font-size:13px; color:var(--text-muted);">CIRBSc, Jamia Millia Islamia, New Delhi</div>
+            </div>
+            <div class="timeline-item">
+                <div style="font-size:11px; font-weight:600; color:var(--teal-600);">2018 – 2020</div>
+                <div style="font-weight:500;">M.Sc. Bioinformatics (CGPA 9.15/10)</div>
+                <div style="font-size:13px; color:var(--text-muted);">Jamia Millia Islamia, New Delhi</div>
+            </div>
         </div>
-        <div class="pub-title">Current advancement in AI-integrated drug discovery: Methods and applications</div>
-        <div class="pub-authors">Mathur Y., Choudhury A., Prabha S., Saeed M.U., Sulaimani M.N., Mohammad T., Hassan M.I. &nbsp;·&nbsp; <a href="https://doi.org/10.1016/j.biotechadv.2025.108642" target="_blank" rel="noopener">DOI ↗</a></div>
-      </div>
+    </section>
 
-      <div class="pub-item">
-        <div class="pub-meta">
-          <span class="pub-year">2025</span>
-          <span class="pub-journal-badge">Ageing Research Reviews</span>
-        </div>
-        <div class="pub-title">Understanding of Alzheimer's disease pathophysiology for therapeutic implications of natural products as neuroprotective agents</div>
-        <div class="pub-authors">Prabha S., Choudhury A., Islam A., Thakur S.C., Hassan M.I. &nbsp;·&nbsp; <a href="https://doi.org/10.1016/j.arr.2025.102680" target="_blank" rel="noopener">DOI ↗</a></div>
-      </div>
-
-      <div class="more-pubs" id="more-pubs">
-
-        <div class="pub-item">
-          <div class="pub-meta">
-            <span class="pub-year">2025</span>
-            <span class="pub-journal-badge">Pathology–Research and Practice</span>
-          </div>
-          <div class="pub-title">Discovering potential therapeutic targets in glioblastoma multiforme using a multi-omics approach</div>
-          <div class="pub-authors">Saeed M.U., Choudhury A., Ansari J., Mohammad T., Hussain A., Fatima U., Alajmi M.F., Hassan M.I. &nbsp;·&nbsp; <a href="https://doi.org/10.1016/j.prp.2025.155942" target="_blank" rel="noopener">DOI ↗</a></div>
-        </div>
-
-        <div class="pub-item">
-          <div class="pub-meta">
-            <span class="pub-year">2025</span>
-            <span class="pub-journal-badge">3 Biotech</span>
-          </div>
-          <div class="pub-title">Multi-targeted approach via apigenin-7-O-glucoside for therapeutic intervention of tau phosphorylating kinases in Alzheimer's disease</div>
-          <div class="pub-authors">Prabha S., Choudhury A., Jawaid T., Saeed M.U., Thakur S.C., Hassan M.I. &nbsp;·&nbsp; <a href="https://doi.org/10.1007/s13205-025-04413-3" target="_blank" rel="noopener">DOI ↗</a></div>
-        </div>
-
-        <div class="pub-item">
-          <div class="pub-meta">
-            <span class="pub-year">2024</span>
-            <span class="pub-journal-badge">Biomedicine &amp; Pharmacotherapy</span>
-          </div>
-          <div class="pub-title">Exploring MTH1 inhibitory potential of Thymoquinone and Baicalin for therapeutic targeting of breast cancer</div>
-          <div class="pub-authors">Taiyab A., Choudhury A., Haidar S., Yousuf M., Rathi A., Koul P., Chakrabarty A., Islam A., Shamsi A., Hassan M.I. &nbsp;·&nbsp; <a href="https://doi.org/10.1016/j.biopha.2024.116332" target="_blank" rel="noopener">DOI ↗</a></div>
-        </div>
-
-        <div class="pub-item">
-          <div class="pub-meta">
-            <span class="pub-year">2024</span>
-            <span class="pub-journal-badge">J. Biomol. Struct. Dyn.</span>
-          </div>
-          <div class="pub-title">Targeting transcriptional regulatory protein RfaH with natural compounds to develop novel therapies against Klebsiella pneumoniae</div>
-          <div class="pub-authors">Ashraf A., Choudhury A., Khan M.A., Noor S., Hussain A., Alajmi M.F., Hassan M.I.</div>
-        </div>
-
-        <div class="pub-item">
-          <div class="pub-meta">
-            <span class="pub-year">2024</span>
-            <span class="pub-journal-badge">Int. J. Biol. Macromolecules</span>
-          </div>
-          <div class="pub-title">Harnessing memantine in Alzheimer's disease therapy through inhibition of microtubule affinity-regulating kinase: Mechanistic insights</div>
-          <div class="pub-authors">Anwar S., Choudhury A., Hussain A., Alajmi M.F., Hassan M.I., Islam A. &nbsp;·&nbsp; <a href="https://doi.org/10.1016/j.ijbiomac.2024.130090" target="_blank" rel="noopener">DOI ↗</a></div>
-        </div>
-
-        <div class="pub-item">
-          <div class="pub-meta">
-            <span class="pub-year">2022</span>
-            <span class="pub-journal-badge">PLoS ONE</span>
-          </div>
-          <div class="pub-title">Comparative analysis of web-based programs for single amino acid substitutions in proteins</div>
-          <div class="pub-authors">Choudhury A., Mohammad T., Anjum F., Shafie A., Singh I.K., et al. &nbsp;·&nbsp; <a href="https://doi.org/10.1371/journal.pone.0267084" target="_blank" rel="noopener">DOI ↗</a></div>
-        </div>
-
-        <div class="pub-item">
-          <div class="pub-meta">
-            <span class="pub-year">2021</span>
-            <span class="pub-journal-badge">Scientific Reports</span>
-          </div>
-          <div class="pub-title">Structural genomics approach to investigate deleterious impact of nsSNPs in conserved telomere maintenance component 1</div>
-          <div class="pub-authors">Choudhury A., Mohammad T., Samarth N., Hussain A., et al. &nbsp;·&nbsp; <a href="https://doi.org/10.1038/s41598-021-89450-7" target="_blank" rel="noopener">DOI ↗</a></div>
-        </div>
-
-        <div class="pub-item">
-          <div class="pub-meta">
-            <span class="pub-year">2021</span>
-            <span class="pub-journal-badge">Front. Cell. Infect. Microbiol.</span>
-          </div>
-          <div class="pub-title">Genomic variations in the structural proteins of SARS-CoV-2 and their deleterious impact on pathogenesis: a comparative genomics approach</div>
-          <div class="pub-authors">Mohammad T., Choudhury A., Habib I., Asrani P., et al. &nbsp;·&nbsp; <a href="https://doi.org/10.3389/fcimb.2021.765039" target="_blank" rel="noopener">DOI ↗</a></div>
-        </div>
-
-      </div>
-
-      <button class="toggle-btn" id="toggle-btn" onclick="togglePubs()">Show all 11 publications ↓</button>
-    </div>
-  </section>
-
-  <!-- EDUCATION & EXPERIENCE -->
-  <section class="section" id="education">
-    <div class="section-header">
-      <span class="section-label">Education &amp; Experience</span>
-      <div class="section-line"></div>
-    </div>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="timeline-period">2022 – Present</div>
-        <div class="timeline-title">Ph.D. in Biological Sciences (Thesis submitted)</div>
-        <div class="timeline-sub">Centre for Interdisciplinary Research in Basic Sciences, Jamia Millia Islamia, New Delhi</div>
-        <div class="timeline-desc">
-          <p style="margin-bottom:6px;"><em>Thesis:</em> Design and Development of Tau-Protein Kinase Inhibitors for Therapeutic Targeting of Neuroinflammatory Diseases</p>
-          <ul>
-            <li>Virtual screening, molecular dynamics simulations, and MM/PBSA analyses to characterize small-molecule inhibitors</li>
-            <li>Microarray-based differential gene expression analysis to prioritize therapeutic targets</li>
-            <li>Machine learning for SAR optimization in hit-to-lead campaigns</li>
-            <li>Custom bioinformatics pipelines in Python, R, and Bash for structural and transcriptomic data</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-period">2020 – 2022</div>
-        <div class="timeline-title">Project Assistant</div>
-        <div class="timeline-sub">Centre for Interdisciplinary Research in Basic Sciences, Jamia Millia Islamia, New Delhi</div>
-        <div class="timeline-desc">
-          <ul>
-            <li>Investigated CTC1 variants linked to Coats plus syndrome using structural genomics</li>
-            <li>Analyzed SARS-CoV-2 structural proteins and characterized pathogenic variation</li>
-            <li>Systematically benchmarked 15 tools for predicting amino acid substitution pathogenicity</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-period">2018 – 2020</div>
-        <div class="timeline-title">M.Sc. in Bioinformatics — CGPA 9.15 / 10</div>
-        <div class="timeline-sub">Department of Computer Science, Jamia Millia Islamia, New Delhi</div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-period">2015 – 2018</div>
-        <div class="timeline-title">B.Sc. Honours in Botany — CGPA 8.33 / 10</div>
-        <div class="timeline-sub">University of Delhi</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CONFERENCES -->
-  <section class="section" id="conferences">
-    <div class="section-header">
-      <span class="section-label">Conferences &amp; Talks</span>
-      <div class="section-line"></div>
-    </div>
-    <div class="conf-list">
-
-      <div class="conf-item">
-        <span class="conf-badge badge-poster">Poster</span>
-        <div class="conf-text">
-          <strong>Structure-based identification of DYRK1A inhibitors for therapeutic targeting of neuroinflammatory diseases.</strong>
-          National Conference on Drug Discovery 2025: Emerging Trends and Future Prospects, Jamia Millia Islamia, New Delhi — February 24–26, 2025.
-        </div>
-      </div>
-
-      <div class="conf-item">
-        <span class="conf-badge badge-poster">Poster</span>
-        <div class="conf-text">
-          <strong>Targeting ABL1 kinase via natural compounds: A structure-guided approach to prevent tau-hyperphosphorylation mediated neuroinflammatory diseases.</strong>
-          National Conference on Frontiers in Antimicrobial Resistance: Research, Policy, and Practice, CIRBSc, JMI, New Delhi — November 6–7, 2025.
-        </div>
-      </div>
-
-      <div class="conf-item">
-        <span class="conf-badge badge-talk">Oral talk</span>
-        <div class="conf-text">
-          <strong>Computational identification of natural compound inhibitors of TTBK1 for tauopathy-related neurodegeneration.</strong>
-          1st International Interdisciplinary Science Congress: Young Scholar's Meet, CIRBSc, JMI, New Delhi — October 9, 2024.
-        </div>
-      </div>
-
-      <div class="conf-item">
-        <span class="conf-badge badge-poster">Poster</span>
-        <div class="conf-text">
-          <strong>EMBO Practical Course on Computational Molecular Evolution (CoME).</strong>
-          Heraklion, Crete, Greece — May 7–18, 2023.
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section" id="contact">
-    <div class="section-header">
-      <span class="section-label">Contact</span>
-      <div class="section-line"></div>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <div class="clabel">Personal email</div>
-        <div class="cvalue"><a href="mailto:arunabhch98@gmail.com">arunabhch98@gmail.com</a></div>
-      </div>
-      <div class="contact-card">
-        <div class="clabel">Institutional email</div>
-        <div class="cvalue"><a href="mailto:arunabh184352@st.jmi.ac.in">arunabh184352@st.jmi.ac.in</a></div>
-      </div>
-      <div class="contact-card">
-        <div class="clabel">Phone</div>
-        <div class="cvalue"><a href="tel:+919101759861">+91-9101759861</a></div>
-      </div>
-      <div class="contact-card">
-        <div class="clabel">Google Scholar</div>
-        <div class="cvalue"><a href="https://scholar.google.com/citations?user=m7P7WS0AAAAJ&hl=en" target="_blank" rel="noopener">View profile ↗</a></div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Arunabh Choudhury · arunabhchoudhury.github.io</p>
-    <p>CIRBSc, Jamia Millia Islamia, New Delhi, India</p>
-  </footer>
-
+    <footer id="contact">
+        <p>© 2026 Arunabh Choudhury · arunabhch98@gmail.com</p>
+        <p>CIRBSc, Jamia Millia Islamia, New Delhi</p>
+    </footer>
 </div>
 
 <script>
-  // Mobile nav toggle
-  const toggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-  toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
-
-  // Publications expand/collapse
-  function togglePubs() {
-    const more = document.getElementById('more-pubs');
-    const btn = document.getElementById('toggle-btn');
-    const open = more.classList.toggle('visible');
-    btn.textContent = open ? 'Show fewer publications ↑' : 'Show all 11 publications ↓';
-  }
+    function togglePubs() {
+        const more = document.getElementById('more-pubs');
+        const btn = document.getElementById('toggle-btn');
+        const open = more.classList.toggle('visible');
+        btn.textContent = open ? 'Show fewer publications ↑' : 'Show all 30+ publications ↓';
+    }
 </script>
-
 </body>
 </html>
