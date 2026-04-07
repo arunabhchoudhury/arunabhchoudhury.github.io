@@ -611,7 +611,6 @@
   <section class="hero">
     <div>
       <div class="hero-tag">Ph.D. Candidate · Computational Biology · New Delhi</div>
-      <h1>Drug discovery<br>through <em>computation</em></h1>
       <p class="hero-bio">
         Ph.D. researcher at the Centre for Interdisciplinary Research in Basic Sciences, Jamia Millia Islamia,
         specializing in computer-aided drug design and computational discovery of novel therapeutics for
